@@ -1,12 +1,13 @@
-import { Inter } from 'next/font/google'
-import styled from "styled-components";
+// import { Inter } from 'next/font/google'
 import axios from "axios";
-import { URL_MOVIES } from "../../scripts/constants";
+import { URL_MOVIES } from "@/scripts/constants";
 import { useEffect, useState } from "react";
-import { Link } from "next/link";
+import Link from "next/link";
+import styles from "@/styles/home.module.css";
+import Head from "next/head";
 
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
@@ -18,55 +19,43 @@ export default function Home() {
     promise.catch((error) => console.log(error.response.data));
   }, []);
 
+  if (movies === undefined || movies.length === 0) {
+    return <h1>...</h1>
+  }
+
   return (
-    <PageContainer>
-      Selecione o filme
+    <>
+      <Head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Cineflex Next App</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+      </Head>
 
-      <ListContainer>
-        {movies.map((m) =>
-          <Link key={m.id} href={`/sessoes/${m.id}`}>
-            <MovieContainer data-test="movie">
-              <img src={m.posterURL} alt={m.title} />
-            </MovieContainer>
-          </Link>
-        )}
-      </ListContainer>
+      <main className={styles.wrapper}>
+        Selecione o filme
 
-    </PageContainer>
-  )
+        <div className={styles.container}>
+          {movies.map((m) =>
+            <Link key={m.id} href={`/sessoes/${m.id}`}>
+              <div className={styles.movie} data-test="movie">
+                <img src={m.posterURL} alt={m.title} />
+              </div>
+            </Link>
+          )}
+
+          {/* another syntax to href */}
+          {/* {movies.map((m) =>
+            <Link key={m.id} href={{ pathname: `/sessoes/[id]`, query: { id: m.id } }}>
+              <div className={styles.movie} data-test="movie">
+                <img src={m.posterURL} alt={m.title} />
+              </div>
+            </Link>
+          )} */}
+        </div>
+      </main>
+    </>
+  );
 }
-
-const PageContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Roboto';
-    font-size: 24px;
-    text-align: center;
-    color: #293845;
-    margin-top: 30px;
-    padding-top: 70px;
-`;
-
-const ListContainer = styled.div`
-    width: 330px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    padding: 10px;
-`;
-
-const MovieContainer = styled.div`
-    width: 145px;
-    height: 210px;
-    box-shadow: 0px 2px 4px 2px #0000001A;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    img {
-        width: 130px;
-        height: 190px;
-    }
-`;
