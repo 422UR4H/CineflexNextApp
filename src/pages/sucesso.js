@@ -1,7 +1,9 @@
 import styles from "@/styles/sucesso.module.css";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function sucesso({ booking }) {
+    const router = useRouter();
+
     return (
         <div className={styles.wrapper}>
             <h1>Pedido feito <br /> com sucesso!</h1>
@@ -23,9 +25,9 @@ export default function sucesso({ booking }) {
                 <p>CPF: {booking.client.cpf}</p>
             </div>
 
-            <Link href="/">
-                <button data-test="go-home-btn">Voltar para Home</button>
-            </Link>
+            <button onClick={() => router.push('/')} data-test="go-home-btn">
+                Voltar para Home
+            </button>
         </div>
     );
 }

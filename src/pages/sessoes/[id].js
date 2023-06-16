@@ -1,15 +1,16 @@
 import axios from "axios";
+import styles from "@/styles/sessoes.module.css";
+import { URL_MOVIES } from "@/scripts/constants";
 import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
+import Footer from "@/components/Footer";
+
+// import { useParams } from "react-router-dom"; --> VITE VERSION
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { URL_MOVIES } from "@/scripts/constants";
-import styles from "@/styles/sessoes.module.css";
-import Footer from "@/components/Footer";
 
 
 export default function sessoes() {
-    // const { id } = useParams();
+    // const { id } = useParams(); --> VITE VERSION
     const router = useRouter();
     const { id } = router.query;
 

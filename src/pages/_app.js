@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
+import axios from 'axios';
 import MainLayout from '@/components/MainLayout';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 
 export default function App({ Component, pageProps }) {

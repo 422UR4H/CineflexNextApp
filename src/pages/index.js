@@ -1,13 +1,10 @@
-// import { Inter } from 'next/font/google'
 import axios from "axios";
+import styles from "@/styles/home.module.css";
 import { URL_MOVIES } from "@/scripts/constants";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import styles from "@/styles/home.module.css";
 import Head from "next/head";
 
-
-// const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const [movies, setMovies] = useState([]);

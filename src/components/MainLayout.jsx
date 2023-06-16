@@ -8,7 +8,7 @@ export default function MainLayout({ children }) {
                 CINEFLEX
             </header>
 
-            { children }
+            {children}
         </>
     );
 }

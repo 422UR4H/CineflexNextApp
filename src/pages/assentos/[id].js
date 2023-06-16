@@ -1,51 +1,53 @@
 import axios from "axios";
 import styles from "@/styles/assentos.module.css";
-// import { useParams } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { URL_SEATS, URL_SHOWTIMES } from "@/scripts/constants";
 import CaptionContainer from "@/components/CaptionContainer";
 import Footer from "@/components/Footer";
 
+// import { useParams } from "react-router-dom"; --> VITE VERSION
+// import { useNavigate } from "react-router-dom"; --> VITE VERSION
+import { useRouter } from "next/router";
+
 
 export default function assentos({ setBooking }) {
-    // const navigate = useNavigate();
-    // const { id } = useParams();
-    const router = useRouter();
-    const { id } = router.query;
-
     const [seats, setSeats] = useState(undefined);
     const [footer, setFooter] = useState(undefined);
     const [movie, setMovie] = useState({});
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
 
+    // const navigate = useNavigate(); --> VITE VERSION
+    // const { id } = useParams(); --> VITE VERSION
+    const router = useRouter();
+    const { id } = router.query;
+
 
     useEffect(() => {
-        const promise = axios.get(`${URL_SHOWTIMES}/${id}/seats`);
+        axios.get(`${URL_SHOWTIMES}/${id}/seats`)
+            .then(({ data }) => {
+                const selected = [];
 
-        promise.then(({ data }) => {
-            const selected = [];
+                data.seats.forEach((s) => {
+                    selected.push({ ...s, isSelected: false });
+                });
+                setSeats(selected);
 
-            data.seats.forEach((s) => {
-                selected.push({ ...s, isSelected: false });
+                setFooter({
+                    posterURL: data.movie.posterURL,
+                    title: data.movie.title,
+                    weekday: data.day.weekday,
+                    time: data.name
+                });
+                setMovie({
+                    title: data.movie.title,
+                    date: data.day.date,
+                    time: data.name
+                });
+            })
+            .catch((error) => {
+                console.log(error.response.data)
             });
-            setSeats(selected);
-            setFooter({
-                posterURL: data.movie.posterURL,
-                title: data.movie.title,
-                weekday: data.day.weekday,
-                time: data.name
-            });
-
-            setMovie({
-                title: data.movie.title,
-                date: data.day.date,
-                time: data.name
-            });
-        });
-        promise.catch((error) => console.log(error.response.data));
     }, []);
 
     function select(seat, i) {
@@ -76,19 +78,29 @@ export default function assentos({ setBooking }) {
             return;
         }
 
-        axios.post(URL_SEATS, {
-            ids: idsSelected,
-            name: name,
-            cpf: cpf
-        });
-        setBooking({
-            movie,
-            seats: seatsSelected,
-            client: { name, cpf }
-        });
-
-        // navigate(`/sucesso`);
-        router.push("/sucesso");
+        axios
+            .post(URL_SEATS, {
+                ids: idsSelected,
+                name: name,
+                cpf: cpf
+            })
+            .then(() => {
+                setBooking({
+                    movie,
+                    seats: seatsSelected,
+                    client: { name, cpf }
+                });
+                // navigate(`/sucesso`); --> VITE VERSION
+                router.push("/sucesso");
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("Não foi possível prosseguir com a compra." +
+                    "Tente outros assentor, ou tente novamente mais tarde!"
+                );
+                // reloading the current route making a new request to the server
+                router.refresh(); // next router
+            })
     }
 
     if (!seats) {
