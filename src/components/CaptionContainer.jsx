@@ -2,8 +2,6 @@ import styles from "@/styles/CaptionContainer.module.css";
 import CaptionItem from "./CaptionItem";
 
 export default function CaptionContainer() {
-    console.log(styles.selected);
-
     return (
         <div className={styles.wrapper}>
             <CaptionItem status="selected">Selecionado</CaptionItem>

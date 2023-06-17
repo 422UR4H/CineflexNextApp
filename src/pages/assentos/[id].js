@@ -1,6 +1,6 @@
 import axios from "axios";
 import styles from "@/styles/assentos.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { URL_SEATS, URL_SHOWTIMES } from "@/scripts/constants";
 import CaptionContainer from "@/components/CaptionContainer";
 import Footer from "@/components/Footer";
@@ -10,45 +10,14 @@ import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 
 
-export default function assentos({ setBooking }) {
-    const [seats, setSeats] = useState(undefined);
-    const [footer, setFooter] = useState(undefined);
-    const [movie, setMovie] = useState({});
+export default function assentos({ setBooking, _seats, footer, movie }) {
+    // const navigate = useNavigate(); --> VITE VERSION
+    const router = useRouter();
+
+    const [seats, setSeats] = useState(_seats);
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
 
-    // const navigate = useNavigate(); --> VITE VERSION
-    // const { id } = useParams(); --> VITE VERSION
-    const router = useRouter();
-    const { id } = router.query;
-
-
-    useEffect(() => {
-        axios.get(`${URL_SHOWTIMES}/${id}/seats`)
-            .then(({ data }) => {
-                const selected = [];
-
-                data.seats.forEach((s) => {
-                    selected.push({ ...s, isSelected: false });
-                });
-                setSeats(selected);
-
-                setFooter({
-                    posterURL: data.movie.posterURL,
-                    title: data.movie.title,
-                    weekday: data.day.weekday,
-                    time: data.name
-                });
-                setMovie({
-                    title: data.movie.title,
-                    date: data.day.date,
-                    time: data.name
-                });
-            })
-            .catch((error) => {
-                console.log(error.response.data)
-            });
-    }, []);
 
     function select(seat, i) {
         if (!seat.isAvailable) {
@@ -95,8 +64,8 @@ export default function assentos({ setBooking }) {
             })
             .catch((error) => {
                 console.error(error);
-                alert("Não foi possível prosseguir com a compra." +
-                    "Tente outros assentor, ou tente novamente mais tarde!"
+                alert("Não foi possível prosseguir com a compra. " +
+                    "Tente outros assentos, ou tente novamente mais tarde!"
                 );
                 // reloading the current route making a new request to the server
                 router.refresh(); // next router
@@ -106,8 +75,6 @@ export default function assentos({ setBooking }) {
     if (!seats) {
         return <>Carregando...</>;
     }
-
-    seats.map((s) => console.log(s.isAvailable));
 
     return (
         <div className={styles.wrapper}>
@@ -168,4 +135,31 @@ export default function assentos({ setBooking }) {
 
         </div>
     );
+}
+
+export const getServerSideProps = async ({ query }) => {
+    const { id } = query;
+    const { data } = await axios.get(`${URL_SHOWTIMES}/${id}/seats`);
+    const selected = [];
+
+    data.seats.forEach((s) => {
+        selected.push({ ...s, isSelected: false });
+    });
+
+    return {
+        props: {
+            _seats: selected,
+            footer: {
+                posterURL: data.movie.posterURL,
+                title: data.movie.title,
+                weekday: data.day.weekday,
+                time: data.name
+            },
+            movie: {
+                title: data.movie.title,
+                date: data.day.date,
+                time: data.name
+            }
+        }
+    };
 }

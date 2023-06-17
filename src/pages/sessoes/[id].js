@@ -1,33 +1,11 @@
 import axios from "axios";
 import styles from "@/styles/sessoes.module.css";
 import { URL_MOVIES } from "@/scripts/constants";
-import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
-
-// import { useParams } from "react-router-dom"; --> VITE VERSION
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 
-export default function sessoes() {
-    // const { id } = useParams(); --> VITE VERSION
-    const router = useRouter();
-    const { id } = router.query;
-
-    const [days, setDays] = useState(undefined);
-    const [movie, setMovie] = useState(undefined);
-
-
-    useEffect(() => {
-        const promise = axios.get(`${URL_MOVIES}/${id}/showtimes`);
-
-        promise.then(({ data }) => {
-            setDays(data.days);
-            setMovie({ title: data.title, posterURL: data.posterURL });
-        });
-        promise.catch((error) => console.log(error.response.data));
-    }, []);
-
+export default function sessoes({ days, movie }) {
     if (!days) {
         return <>Carregando...</>
     }
@@ -60,4 +38,16 @@ export default function sessoes() {
             </Footer>
         </div>
     );
+}
+
+export const getServerSideProps = async ({ query }) => {
+    const { id } = query;
+    const { data } = await axios.get(`${URL_MOVIES}/${id}/showtimes`);
+
+    return {
+        props: {
+            days: data.days,
+            movie: { title: data.title, posterURL: data.posterURL }
+        }
+    };
 }
