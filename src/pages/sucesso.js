@@ -4,6 +4,10 @@ import { useRouter } from "next/navigation";
 export default function sucesso({ booking }) {
     const router = useRouter();
 
+    if (!booking) {
+        return <>Carregando...</>
+    }
+
     return (
         <div className={styles.wrapper}>
             <h1>Pedido feito <br /> com sucesso!</h1>
