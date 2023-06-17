@@ -3,9 +3,16 @@ import styles from "@/styles/sessoes.module.css";
 import { URL_MOVIES } from "@/scripts/constants";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 
 export default function sessoes({ days, movie }) {
+    const router = useRouter();
+
+    function link(id) {
+        router.push(`/assentos/${id}`);
+    }
+
     if (!days) {
         return <>Carregando...</>
     }
@@ -18,24 +25,19 @@ export default function sessoes({ days, movie }) {
                     <div className={styles.session} key={i} data-test="movie-day">
                         {d.weekday} - {d.date}
                         <div className={styles.buttonsContainer}>
+
                             {d.showtimes.map((s) => (
-                                <Link key={s.id} href={`/assentos/${s.id}`}>
-                                    <button data-test="showtime">{s.name}</button>
-                                </Link>
+                                <button key={s.id} onClick={() => link(s.id)} data-test="showtime">
+                                    {s.name}
+                                </button>
                             ))}
+
                         </div>
                     </div>
                 ))}
             </div>
 
-            <Footer>
-                <div>
-                    <img src={movie.posterURL} alt="poster" />
-                </div>
-                <div>
-                    <p>{movie.title}</p>
-                </div>
-            </Footer>
+            <Footer src={movie.posterURL} title={movie.title} />
         </div>
     );
 }

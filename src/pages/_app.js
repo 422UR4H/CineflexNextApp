@@ -1,3 +1,4 @@
+import '@/styles/reset.css';
 import '@/styles/globals.css';
 import axios from 'axios';
 import MainLayout from '@/components/MainLayout';
