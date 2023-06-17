@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 export default function sucesso({ booking }) {
     const router = useRouter();
 
-    if (!booking) {
+    if (!booking || !booking.movie.title) {
         return <>Carregando...</>
     }
 
