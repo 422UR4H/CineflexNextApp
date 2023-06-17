@@ -1,8 +1,7 @@
 import axios from "axios";
 import styles from "@/styles/sessoes.module.css";
-import { URL_MOVIES } from "@/scripts/constants";
+import URL from "@/scripts/constants";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 
@@ -44,7 +43,7 @@ export default function sessoes({ days, movie }) {
 
 export const getServerSideProps = async ({ query }) => {
     const { id } = query;
-    const { data } = await axios.get(`${URL_MOVIES}/${id}/showtimes`);
+    const { data } = await axios.get(`${URL.MOVIES}/${id}/showtimes`);
 
     return {
         props: {

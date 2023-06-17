@@ -3,7 +3,7 @@
 // import { useRouter } from "next/router"; --> NEXT OBSOLETE VERSION
 import { useRouter } from "next/navigation";
 
-import { URL_SEATS } from "@/scripts/constants";
+import URL from "@/scripts/constants";
 import { useState } from "react";
 import axios from "axios";
 
@@ -34,7 +34,7 @@ export default function Form({ seats, movie, setBooking }) {
         }
 
         axios
-            .post(URL_SEATS, {
+            .post(URL.SEATS, {
                 ids: idsSelected,
                 name: name,
                 cpf: cpf

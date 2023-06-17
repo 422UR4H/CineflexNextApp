@@ -1,6 +1,6 @@
 import axios from "axios";
 import styles from "@/styles/home.module.css";
-import { URL_MOVIES } from "@/scripts/constants";
+import URL from "@/scripts/constants";
 import Link from "next/link";
 import Head from "next/head";
 
@@ -42,7 +42,7 @@ export default function Home({ movies }) {
 }
 
 export const getServerSideProps = async () => {
-  const {data} = await axios.get(URL_MOVIES);
+  const {data} = await axios.get(URL.MOVIES);
 
   return {
     props: { movies: data }

@@ -2,9 +2,10 @@
 // import { useRouter } from "next/router"; --> OBSOLETE NEXT VERSION
 import { usePathname, useRouter } from "next/navigation";
 import styles from "@/styles/BackButton.module.css";
+
+// import { BiArrowBack } from "react-icons/bi";
 import Image from "next/image";
 import arrow from "@/images/arrow-back-sharp.svg";
-// import { ArrowBackSharp } from "react-ionicons";
 
 
 export default function BackButton() {
@@ -23,12 +24,8 @@ export default function BackButton() {
             disabled={isHomePage}
             data-test="go-home-header-btn"
         >
+            {/* <BiArrowBack /> */}
             <Image src={arrow} alt="<-" />
-            {/* <ArrowBackSharp
-                color={'#00000'}
-                height="250px"
-                width="250px"
-            /> */}
         </button>
     );
 }

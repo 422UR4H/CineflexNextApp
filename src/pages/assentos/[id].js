@@ -1,7 +1,7 @@
 import axios from "axios";
 import styles from "@/styles/assentos.module.css";
 import { useState } from "react";
-import { URL_SHOWTIMES } from "@/scripts/constants";
+import URL from "@/scripts/constants";
 import CaptionContainer from "@/components/CaptionContainer";
 import Footer from "@/components/Footer";
 import Form from "@/components/Form";
@@ -32,7 +32,7 @@ export default function assentos({ setBooking, _seats, footer, movie }) {
 
 export const getServerSideProps = async ({ query }) => {
     const { id } = query;
-    const { data } = await axios.get(`${URL_SHOWTIMES}/${id}/seats`);
+    const { data } = await axios.get(`${URL.SHOWTIMES}/${id}/seats`);
     const selected = [];
 
     data.seats.forEach((s) => {
