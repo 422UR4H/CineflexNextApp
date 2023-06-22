@@ -25,7 +25,7 @@ export default function BackButton() {
             data-test="go-home-header-btn"
         >
             {/* <BiArrowBack /> */}
-            <Image src={arrow} alt="<-" />
+            <Image className={styles.back} src={arrow} alt="<-" />
         </button>
     );
 }
