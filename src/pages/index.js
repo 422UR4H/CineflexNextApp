@@ -42,7 +42,7 @@ export default function Home({ movies }) {
 }
 
 export const getServerSideProps = async () => {
-  const {data} = await axios.get(URL.MOVIES);
+  const { data } = await axios.get(URL.MOVIES);
 
   return {
     props: { movies: data }

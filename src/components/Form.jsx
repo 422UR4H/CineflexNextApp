@@ -14,7 +14,7 @@ export default function Form({ seats, movie, setBooking }) {
 
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
-    
+
 
     function handleSubmit(e) {
         e.preventDefault();

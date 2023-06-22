@@ -1,13 +1,16 @@
 .wrapper {
-    display: flex;
-    flex-direction: column;
     font-family: 'Roboto';
-    font-size: 24px;
     text-align: center;
+    font-size: 24px;
     color: #293845;
+
     margin-top: 30px;
-    padding-bottom: 120px;
     padding-top: 70px;
+    padding-bottom: 120px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .wrapper div {
@@ -15,19 +18,22 @@
 }
 
 .session {
+    font-family: 'Roboto';
+    color: #293845;
+    font-size: 20px;
+
+    padding: 0 20px;
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    font-family: 'Roboto';
-    font-size: 20px;
-    color: #293845;
-    padding: 0 20px;
 }
 
 .buttonsContainer {
+    margin: 20px 0;
+
     display: flex;
     flex-direction: row;
-    margin: 20px 0;
 }
 
 .buttonsContainer button {

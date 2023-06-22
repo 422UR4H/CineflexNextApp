@@ -1,25 +1,32 @@
 .seatsContainer {
     width: 330px;
+    margin-top: 20px;
+
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
 }
 
 .seatItem {
-    border: 1px solid #7B8B99;
+    font-family: 'Roboto';
+    font-size: 11px;
+
     background-color: #C3CFD9;
     height: 25px;
     width: 25px;
+    margin: 5px 3px;
     border-radius: 25px;
-    font-family: 'Roboto';
-    font-size: 11px;
+    border: 1px solid #7B8B99;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px 3px;
+}
+
+.seatItem:hover {
+    cursor: pointer;
 }
 
 .disabled {

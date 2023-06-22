@@ -10,10 +10,11 @@ header {
   background-color: #C3CFD9;
   color: #E8833A;
   font-family: 'Roboto', sans-serif;
+  text-align: center;
   font-size: 34px;
+
   width: 100%;
   height: 70px;
-  text-align: center;
 
   display: inline-grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -34,8 +35,8 @@ header button {
   color: black;
   width: 35px;
   height: 35px;
-  padding: 0;
   margin-left: 14px;
+  padding: 0;
 }
 
 header button img {
@@ -49,48 +50,64 @@ body {
 }
 
 button {
+  background-color: #E8833A;
+  color: #FFFFFF;
+  font-size: 18px;
+  text-align: center;
+
   height: 43px;
-  background: #E8833A;
+  padding: 0 20px;
   border-radius: 3px;
   border-style: none;
-  font-size: 18px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: #FFFFFF;
-  padding: 0 20px;
 }
 
 button:disabled {
   background-color: lightgray;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 /* forms */
 
 form {
-  width: calc(100vw - 40px);
+  font-size: 18px;
+
+  width: 330px;
+  margin: 20px 0;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 20px 0;
-  font-size: 18px;
 }
 
 form input {
-  background: #FFFFFF;
-  border: 1px solid #D5D5D5;
-  border-radius: 3px;
-  height: 50px;
-  margin-bottom: 25px;
-  margin-top: 10px;
-  padding: 0 10px;
+  background-color: #FFFFFF;
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
+
+  width: inherit;
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  padding: 0 10px;
+  border-radius: 3px;
+  border: 1px solid #D5D5D5;
+
   display: flex;
   align-items: center;
 
-  width: calc(100vw - 60px);
+}
+
+form input::-webkit-outer-spin-button,
+form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 form input::placeholder {
