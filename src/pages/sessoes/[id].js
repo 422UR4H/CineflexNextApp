@@ -51,4 +51,4 @@ export const getServerSideProps = async ({ query }) => {
             movie: { title: data.title, posterURL: data.posterURL }
         }
     };
-}
+};

@@ -55,4 +55,4 @@ export const getServerSideProps = async ({ query }) => {
             }
         }
     };
-}
+};

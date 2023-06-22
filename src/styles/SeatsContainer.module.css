@@ -10,7 +10,7 @@
 }
 
 .seatItem {
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
     font-size: 11px;
 
     background-color: #C3CFD9;

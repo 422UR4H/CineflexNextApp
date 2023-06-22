@@ -36,8 +36,8 @@ export default function Form({ seats, movie, setBooking }) {
         axios
             .post(URL.SEATS, {
                 ids: idsSelected,
-                name: name,
-                cpf: cpf
+                name,
+                cpf
             })
             .then(() => {
                 setBooking({
@@ -55,7 +55,7 @@ export default function Form({ seats, movie, setBooking }) {
                 );
                 // reloading the current route making a new request to the server
                 router.refresh(); // next router
-            })
+            });
     }
 
     return (
